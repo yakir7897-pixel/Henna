@@ -1,4 +1,5 @@
-import { ENTRANCE_EFFECTS, toEntranceEffect, type EventFormValues } from "@/lib/invite/types";
+import { ENTRANCE_EFFECTS, parseDatetimeLocal, toEntranceEffect, type EventFormValues } from "@/lib/invite/types";
+import { toHebrewDateString } from "@/lib/invite/hebrew-date";
 import { CoverImageUploader } from "./CoverImageUploader";
 
 const inputClass =
@@ -51,6 +52,11 @@ export function EventFormFields({
             onChange={(e) => onChange({ eventDate: e.target.value })}
             required
           />
+          {values.eventDate && (
+            <p className="mt-1 text-xs text-muted">
+              תאריך עברי: {toHebrewDateString(parseDatetimeLocal(values.eventDate))}
+            </p>
+          )}
         </div>
         <div>
           <label className={labelClass}>שם המקום</label>

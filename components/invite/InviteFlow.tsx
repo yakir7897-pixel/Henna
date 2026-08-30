@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import { submitRsvp } from "@/app/i/[slug]/actions";
 import { daysUntil, toEntranceEffect } from "@/lib/invite/types";
+import { toHebrewDateString } from "@/lib/invite/hebrew-date";
 
 export type InviteEventData = {
   id: string;
@@ -53,6 +54,7 @@ export function InviteFlow({ event }: { event: InviteEventData }) {
     minute: "2-digit",
     timeZone: "UTC",
   });
+  const hebrewDateLabel = toHebrewDateString(eventDate);
   const daysLeft = daysUntil(eventDate);
 
   function handleSubmit(e: React.FormEvent) {
@@ -146,6 +148,7 @@ export function InviteFlow({ event }: { event: InviteEventData }) {
 
             <div className="mt-6 space-y-1">
               <p className="text-lg font-semibold">{dateLabel}</p>
+              <p className="text-sm text-white/75">{hebrewDateLabel}</p>
               <p className="text-sm text-white/85">בשעה {timeLabel}</p>
               <p className="text-sm text-white/70">
                 {event.venueName}
