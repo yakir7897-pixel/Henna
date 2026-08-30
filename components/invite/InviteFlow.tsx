@@ -238,30 +238,28 @@ export function InviteFlow({ event }: { event: InviteEventData }) {
               </div>
             </div>
 
-            {attending && (
-              <div>
-                <label className="block text-sm font-medium text-neutral-700">כמה מגיעים בסה&quot;כ?</label>
-                <div className="mt-1 flex items-center justify-center gap-4 rounded-lg border border-neutral-300 py-2">
-                  <button
-                    type="button"
-                    onClick={() => setGuestCount((c) => Math.max(1, c - 1))}
-                    className="flex h-8 w-8 items-center justify-center rounded-full bg-neutral-100 text-lg font-bold text-neutral-700 hover:bg-neutral-200"
-                    aria-label="הפחתת אורח"
-                  >
-                    −
-                  </button>
-                  <span className="w-8 text-center text-lg font-semibold">{guestCount}</span>
-                  <button
-                    type="button"
-                    onClick={() => setGuestCount((c) => Math.min(20, c + 1))}
-                    className="flex h-8 w-8 items-center justify-center rounded-full bg-neutral-100 text-lg font-bold text-neutral-700 hover:bg-neutral-200"
-                    aria-label="הוספת אורח"
-                  >
-                    +
-                  </button>
-                </div>
+            <div>
+              <label className="block text-sm font-medium text-neutral-700">כמה מגיעים בסה&quot;כ?</label>
+              <div className="mt-1 flex items-center justify-center gap-4 rounded-lg border border-neutral-300 py-2">
+                <button
+                  type="button"
+                  onClick={() => setGuestCount((c) => Math.max(1, c - 1))}
+                  className="flex h-8 w-8 items-center justify-center rounded-full bg-neutral-100 text-lg font-bold text-neutral-700 hover:bg-neutral-200"
+                  aria-label="הפחתת אורח"
+                >
+                  −
+                </button>
+                <span className="w-8 text-center text-lg font-semibold">{guestCount}</span>
+                <button
+                  type="button"
+                  onClick={() => setGuestCount((c) => Math.min(20, c + 1))}
+                  className="flex h-8 w-8 items-center justify-center rounded-full bg-neutral-100 text-lg font-bold text-neutral-700 hover:bg-neutral-200"
+                  aria-label="הוספת אורח"
+                >
+                  +
+                </button>
               </div>
-            )}
+            </div>
 
             {showNote ? (
               <div>
