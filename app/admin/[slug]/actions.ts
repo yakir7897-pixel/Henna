@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
-import type { EventInput } from "@/lib/invite/types";
+import { toEntranceEffect, type EventInput } from "@/lib/invite/types";
 
 export async function updateEvent(eventId: string, input: EventInput) {
   const event = await prisma.event.update({
@@ -16,6 +16,8 @@ export async function updateEvent(eventId: string, input: EventInput) {
       mapsUrl: input.mapsUrl ?? null,
       description: input.description ?? null,
       coverImageUrl: input.coverImageUrl ?? null,
+      loadingImageUrl: input.loadingImageUrl ?? null,
+      entranceEffect: toEntranceEffect(input.entranceEffect),
     },
   });
 

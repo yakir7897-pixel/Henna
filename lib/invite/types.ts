@@ -1,3 +1,18 @@
+export const ENTRANCE_EFFECTS = [
+  { value: "fade", label: "דהייה עדינה" },
+  { value: "slideUp", label: "החלקה מלמטה" },
+  { value: "zoomIn", label: "הגדלה מהמרכז" },
+  { value: "flip", label: "היפוך" },
+] as const;
+
+export type EntranceEffect = (typeof ENTRANCE_EFFECTS)[number]["value"];
+
+const ENTRANCE_EFFECT_VALUES = ENTRANCE_EFFECTS.map((e) => e.value) as string[];
+
+export function toEntranceEffect(value: string): EntranceEffect {
+  return ENTRANCE_EFFECT_VALUES.includes(value) ? (value as EntranceEffect) : "fade";
+}
+
 export type EventFormValues = {
   title: string;
   hostNames: string;
@@ -7,6 +22,8 @@ export type EventFormValues = {
   mapsUrl: string;
   description: string;
   coverImageUrl: string;
+  loadingImageUrl: string;
+  entranceEffect: EntranceEffect;
 };
 
 export type EventInput = {
@@ -18,6 +35,8 @@ export type EventInput = {
   mapsUrl?: string;
   description?: string;
   coverImageUrl?: string;
+  loadingImageUrl?: string;
+  entranceEffect: string;
 };
 
 export function emptyEventFormValues(): EventFormValues {
@@ -30,6 +49,8 @@ export function emptyEventFormValues(): EventFormValues {
     mapsUrl: "",
     description: "",
     coverImageUrl: "",
+    loadingImageUrl: "",
+    entranceEffect: "fade",
   };
 }
 
@@ -43,6 +64,8 @@ export function toEventInput(values: EventFormValues): EventInput {
     mapsUrl: values.mapsUrl || undefined,
     description: values.description || undefined,
     coverImageUrl: values.coverImageUrl || undefined,
+    loadingImageUrl: values.loadingImageUrl || undefined,
+    entranceEffect: values.entranceEffect,
   };
 }
 

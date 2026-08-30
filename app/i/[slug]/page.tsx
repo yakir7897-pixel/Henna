@@ -28,6 +28,8 @@ export default async function InvitePage({ params }: { params: Promise<{ slug: s
         mapsUrl: event.mapsUrl,
         description: event.description,
         coverImageUrl: event.coverImageUrl,
+        loadingImageUrl: event.loadingImageUrl,
+        entranceEffect: event.entranceEffect,
       }}
     />
   );

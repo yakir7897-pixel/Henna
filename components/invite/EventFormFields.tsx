@@ -1,4 +1,4 @@
-import type { EventFormValues } from "@/lib/invite/types";
+import { ENTRANCE_EFFECTS, toEntranceEffect, type EventFormValues } from "@/lib/invite/types";
 import { CoverImageUploader } from "./CoverImageUploader";
 
 const inputClass =
@@ -75,6 +75,27 @@ export function EventFormFields({
           value={values.coverImageUrl}
           onChange={(url) => onChange({ coverImageUrl: url })}
         />
+      </div>
+      <div>
+        <label className={labelClass}>תמונה למסך הפתיחה (לפני ההזמנה)</label>
+        <CoverImageUploader
+          value={values.loadingImageUrl}
+          onChange={(url) => onChange({ loadingImageUrl: url })}
+        />
+      </div>
+      <div>
+        <label className={labelClass}>אפקט כניסה להזמנה</label>
+        <select
+          className={inputClass}
+          value={values.entranceEffect}
+          onChange={(e) => onChange({ entranceEffect: toEntranceEffect(e.target.value) })}
+        >
+          {ENTRANCE_EFFECTS.map((effect) => (
+            <option key={effect.value} value={effect.value}>
+              {effect.label}
+            </option>
+          ))}
+        </select>
       </div>
       <div className="sm:col-span-2">
         <label className={labelClass}>תיאור / הודעה אישית לאורחים</label>

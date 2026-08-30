@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { submitRsvp } from "@/app/i/[slug]/actions";
+import { toEntranceEffect } from "@/lib/invite/types";
 
 export type InviteEventData = {
   id: string;
@@ -14,12 +15,22 @@ export type InviteEventData = {
   mapsUrl: string | null;
   description: string | null;
   coverImageUrl: string | null;
+  loadingImageUrl: string | null;
+  entranceEffect: string;
 };
 
-type Step = "invite" | "form" | "thanks";
+type Step = "loading" | "invite" | "form" | "thanks";
+
+const ENTRANCE_ANIMATION: Record<string, string> = {
+  fade: "[animation:fadeIn_0.8s_ease-out]",
+  slideUp: "[animation:slideUp_0.7s_ease-out]",
+  zoomIn: "[animation:zoomIn_0.7s_ease-out]",
+  flip: "[animation:flipIn_0.8s_ease-out]",
+};
 
 export function InviteFlow({ event }: { event: InviteEventData }) {
-  const [step, setStep] = useState<Step>("invite");
+  const [step, setStep] = useState<Step>(event.loadingImageUrl ? "loading" : "invite");
+  const entranceAnimation = ENTRANCE_ANIMATION[toEntranceEffect(event.entranceEffect)];
   const [guestName, setGuestName] = useState("");
   const [phone, setPhone] = useState("");
   const [attending, setAttending] = useState<boolean | null>(null);
@@ -73,8 +84,29 @@ export function InviteFlow({ event }: { event: InviteEventData }) {
       />
       <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/50 via-black/40 to-black/70" />
       <div className="w-full max-w-md">
+        {step === "loading" && (
+          <div className="[animation:fadeIn_0.5s_ease-out]">
+            {event.loadingImageUrl && (
+              <img
+                src={event.loadingImageUrl}
+                alt=""
+                className="mx-auto mb-6 h-40 w-40 rounded-full border-2 border-white/40 object-cover shadow-lg"
+              />
+            )}
+            <p className="text-sm uppercase tracking-widest text-white/70">הזמנה מיוחדת</p>
+            <h1 className="mt-3 text-2xl font-bold">{event.title}</h1>
+            <button
+              type="button"
+              onClick={() => setStep("invite")}
+              className="mt-8 rounded-full bg-white px-8 py-3 text-sm font-bold text-neutral-900 shadow-lg transition hover:scale-105"
+            >
+              פתיחת ההזמנה
+            </button>
+          </div>
+        )}
+
         {step === "invite" && (
-          <div className="[animation:fadeIn_0.8s_ease-out]">
+          <div className={entranceAnimation}>
             <p className="text-sm uppercase tracking-widest text-white/70">אתם מוזמנים</p>
             {event.hostNames && <h1 className="mt-3 text-3xl font-bold">{event.hostNames}</h1>}
             <h2 className="mt-2 text-xl font-semibold">{event.title}</h2>

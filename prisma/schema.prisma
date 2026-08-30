@@ -18,6 +18,8 @@ model Event {
   mapsUrl       String?
   description   String?
   coverImageUrl String?
+  loadingImageUrl String?
+  entranceEffect  String  @default("fade")
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
   rsvps         Rsvp[]

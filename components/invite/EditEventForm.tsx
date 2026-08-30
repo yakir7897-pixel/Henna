@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react";
 import type { Event } from "@prisma/client";
 import { updateEvent } from "@/app/admin/[slug]/actions";
-import { toDatetimeLocal, toEventInput, type EventFormValues } from "@/lib/invite/types";
+import { toDatetimeLocal, toEntranceEffect, toEventInput, type EventFormValues } from "@/lib/invite/types";
 import { EventFormFields } from "./EventFormFields";
 
 function toFormValues(event: Event): EventFormValues {
@@ -16,6 +16,8 @@ function toFormValues(event: Event): EventFormValues {
     mapsUrl: event.mapsUrl ?? "",
     description: event.description ?? "",
     coverImageUrl: event.coverImageUrl ?? "",
+    loadingImageUrl: event.loadingImageUrl ?? "",
+    entranceEffect: toEntranceEffect(event.entranceEffect),
   };
 }
 
