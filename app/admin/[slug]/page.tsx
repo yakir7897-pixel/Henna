@@ -22,8 +22,6 @@ export default async function AdminOverviewPage({ params }: { params: Promise<{ 
     <div className="space-y-6">
       <CountdownTimer eventDate={event.eventDate.toISOString()} />
 
-      <QuickActions slug={event.slug} siteUrl={getSiteUrl()} />
-
       <ResponseBar attending={attending.length} notAttending={notAttending.length} />
 
       <div className="flex items-center gap-4 rounded-2xl border border-line/60 bg-surface p-4 shadow-sm">
@@ -63,6 +61,8 @@ export default async function AdminOverviewPage({ params }: { params: Promise<{ 
           </ul>
         )}
       </section>
+
+      <QuickActions slug={event.slug} siteUrl={getSiteUrl()} />
     </div>
   );
 }
