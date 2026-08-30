@@ -1,0 +1,92 @@
+import type { EventFormValues } from "@/lib/invite/types";
+
+const inputClass =
+  "w-full rounded border border-neutral-300 p-2 text-sm focus:border-neutral-500 focus:outline-none";
+const labelClass = "block text-sm font-medium text-neutral-700";
+
+export function EventFormFields({
+  values,
+  onChange,
+}: {
+  values: EventFormValues;
+  onChange: (patch: Partial<EventFormValues>) => void;
+}) {
+  return (
+    <>
+      <div className="sm:col-span-2">
+        <label className={labelClass}>שם האירוע</label>
+        <input
+          className={inputClass}
+          value={values.title}
+          onChange={(e) => onChange({ title: e.target.value })}
+          placeholder="החינה של יקיר ותהל"
+          required
+        />
+      </div>
+      <div>
+        <label className={labelClass}>שמות המארחים</label>
+        <input
+          className={inputClass}
+          value={values.hostNames}
+          onChange={(e) => onChange({ hostNames: e.target.value })}
+        />
+      </div>
+      <div>
+        <label className={labelClass}>תאריך ושעה</label>
+        <input
+          type="datetime-local"
+          className={inputClass}
+          value={values.eventDate}
+          onChange={(e) => onChange({ eventDate: e.target.value })}
+          required
+        />
+      </div>
+      <div>
+        <label className={labelClass}>שם המקום</label>
+        <input
+          className={inputClass}
+          value={values.venueName}
+          onChange={(e) => onChange({ venueName: e.target.value })}
+          required
+        />
+      </div>
+      <div>
+        <label className={labelClass}>כתובת</label>
+        <input
+          className={inputClass}
+          value={values.address}
+          onChange={(e) => onChange({ address: e.target.value })}
+        />
+      </div>
+      <div>
+        <label className={labelClass}>קישור ניווט (Waze / Google Maps)</label>
+        <input
+          className={inputClass}
+          dir="ltr"
+          value={values.mapsUrl}
+          onChange={(e) => onChange({ mapsUrl: e.target.value })}
+          placeholder="https://waze.com/ul?..."
+        />
+      </div>
+      <div>
+        <label className={labelClass}>תמונת רקע (קישור לתמונה)</label>
+        <input
+          className={inputClass}
+          dir="ltr"
+          value={values.coverImageUrl}
+          onChange={(e) => onChange({ coverImageUrl: e.target.value })}
+          placeholder="https://..."
+        />
+      </div>
+      <div className="sm:col-span-2">
+        <label className={labelClass}>תיאור / הודעה אישית לאורחים</label>
+        <textarea
+          className={inputClass}
+          rows={3}
+          value={values.description}
+          onChange={(e) => onChange({ description: e.target.value })}
+        />
+      </div>
+    </>
+  );
+}

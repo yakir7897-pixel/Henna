@@ -1,0 +1,39 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Event {
+  id            String   @id @default(cuid())
+  slug          String   @unique
+  title         String
+  hostNames     String?
+  eventDate     DateTime
+  venueName     String
+  address       String?
+  mapsUrl       String?
+  description   String?
+  coverImageUrl String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  rsvps         Rsvp[]
+}
+
+model Rsvp {
+  id         String   @id @default(cuid())
+  eventId    String
+  event      Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  guestName  String
+  phone      String
+  attending  Boolean
+  guestCount Int      @default(1)
+  note       String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([eventId, phone])
+}
