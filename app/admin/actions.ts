@@ -26,8 +26,9 @@ export async function uploadCoverImage(formData: FormData): Promise<UploadCoverI
       addRandomSuffix: true,
     });
     return { ok: true, url: blob.url };
-  } catch {
-    return { ok: false, error: "העלאת התמונה נכשלה, נסה שוב" };
+  } catch (err) {
+    const detail = err instanceof Error ? err.message : String(err);
+    return { ok: false, error: `העלאת התמונה נכשלה: ${detail}` };
   }
 }
 
