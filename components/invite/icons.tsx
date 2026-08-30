@@ -102,6 +102,16 @@ export function DesignIcon({ className }: IconProps) {
   );
 }
 
+export function RefreshIcon({ className }: IconProps) {
+  return (
+    <svg {...base} className={className}>
+      <path d="M4.5 12a7.5 7.5 0 0 1 12.9-5.2M19.5 12a7.5 7.5 0 0 1-12.9 5.2" />
+      <path d="M17 3.8V8h-4.2" />
+      <path d="M7 20.2V16h4.2" />
+    </svg>
+  );
+}
+
 export function EventsIcon({ className }: IconProps) {
   return (
     <svg {...base} className={className}>

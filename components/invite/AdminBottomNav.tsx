@@ -2,18 +2,26 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { OverviewIcon, GuestsIcon, DesignIcon, EventsIcon, LinkIcon, CheckCircleIcon } from "./icons";
+import { usePathname, useRouter } from "next/navigation";
+import { OverviewIcon, GuestsIcon, DesignIcon, EventsIcon, LinkIcon, CheckCircleIcon, RefreshIcon } from "./icons";
 
 export function AdminBottomNav({ slug, siteUrl }: { slug: string; siteUrl?: string }) {
   const pathname = usePathname();
+  const router = useRouter();
   const [copied, setCopied] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
 
   function copyLink() {
     const link = `${siteUrl ?? window.location.origin}/i/${slug}`;
     navigator.clipboard.writeText(link);
     setCopied(true);
     setTimeout(() => setCopied(false), 1500);
+  }
+
+  function refreshList() {
+    setRefreshing(true);
+    router.refresh();
+    setTimeout(() => setRefreshing(false), 800);
   }
 
   const items = [
@@ -54,6 +62,15 @@ export function AdminBottomNav({ slug, siteUrl }: { slug: string; siteUrl?: stri
           className="absolute -top-9 left-1 flex h-14 w-14 items-center justify-center rounded-full bg-primary-dark text-white shadow-lg transition hover:scale-105"
         >
           {copied ? <CheckCircleIcon className="h-6 w-6" /> : <LinkIcon className="h-6 w-6" />}
+        </button>
+
+        <button
+          type="button"
+          onClick={refreshList}
+          aria-label="רענון הרשימה"
+          className="absolute -top-9 right-1 flex h-14 w-14 items-center justify-center rounded-full bg-primary-dark text-white shadow-lg transition hover:scale-105"
+        >
+          <RefreshIcon className={`h-6 w-6 ${refreshing ? "animate-spin" : ""}`} />
         </button>
       </div>
     </div>
