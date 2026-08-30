@@ -27,8 +27,7 @@ export function NewEventForm() {
           <button
             type="submit"
             disabled={isPending}
-            className="rounded px-5 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
-            style={{ backgroundColor: "#1f3a5f" }}
+            className="rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark disabled:opacity-60"
           >
             {isPending ? "יוצר..." : "צור אירוע וקבל קישור"}
           </button>
@@ -36,16 +35,16 @@ export function NewEventForm() {
       </form>
 
       {inviteLink && (
-        <div className="rounded border border-green-200 bg-green-50 p-3 text-sm text-green-800">
+        <div className="rounded-lg border border-success/30 bg-success-bg p-3 text-sm text-success">
           <p className="font-medium">האירוע נוצר! זה קישור ההזמנה שאפשר לשלוח לאורחים:</p>
           <div className="mt-2 flex flex-wrap items-center gap-2">
-            <code className="rounded bg-white px-2 py-1 text-xs" dir="ltr">
+            <code className="rounded bg-white px-2 py-1 text-xs text-ink" dir="ltr">
               {inviteLink}
             </code>
             <button
               type="button"
               onClick={() => navigator.clipboard.writeText(inviteLink)}
-              className="rounded border border-green-300 px-2 py-1 text-xs hover:bg-green-100"
+              className="rounded border border-success/40 px-2 py-1 text-xs hover:bg-white"
             >
               העתק קישור
             </button>

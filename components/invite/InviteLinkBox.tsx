@@ -11,9 +11,9 @@ export function InviteLinkBox({ slug }: { slug: string }) {
   }
 
   return (
-    <div className="flex flex-wrap items-center gap-2 rounded-lg border border-neutral-200 bg-white p-4">
-      <span className="text-sm text-neutral-600">קישור ההזמנה:</span>
-      <code className="rounded bg-neutral-100 px-2 py-1 text-xs" dir="ltr">
+    <div className="flex flex-wrap items-center gap-2 rounded-xl border border-line bg-surface p-4">
+      <span className="text-sm text-muted">קישור ההזמנה:</span>
+      <code className="rounded bg-app px-2 py-1 text-xs text-ink" dir="ltr">
         {path}
       </code>
       <button
@@ -23,20 +23,20 @@ export function InviteLinkBox({ slug }: { slug: string }) {
           setCopied(true);
           setTimeout(() => setCopied(false), 1500);
         }}
-        className="rounded border border-neutral-300 px-3 py-1 text-xs hover:bg-neutral-50"
+        className="rounded-full border border-line px-3 py-1 text-xs hover:bg-app"
       >
         {copied ? "הועתק!" : "העתק קישור"}
       </button>
       <button
         type="button"
         onClick={() => window.open(`https://wa.me/?text=${encodeURIComponent(fullLink())}`, "_blank", "noopener,noreferrer")}
-        className="rounded bg-green-600 px-3 py-1 text-xs font-medium text-white hover:bg-green-700"
+        className="rounded-full bg-green-600 px-3 py-1 text-xs font-medium text-white hover:bg-green-700"
       >
         שיתוף בוואטסאפ
       </button>
       <a
         href={`/admin/${slug}/export`}
-        className="rounded border border-neutral-300 px-3 py-1 text-xs hover:bg-neutral-50"
+        className="rounded-full border border-line px-3 py-1 text-xs hover:bg-app"
       >
         ייצוא לאקסל
       </a>

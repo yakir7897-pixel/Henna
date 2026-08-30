@@ -16,7 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="he" dir="rtl" className={`${assistant.variable} h-full`}>
       <body
-        className="flex min-h-full flex-col bg-neutral-50 text-neutral-900"
+        className="flex min-h-full flex-col bg-app text-ink"
         style={{ fontFamily: "var(--font-body)" }}
       >
         {children}

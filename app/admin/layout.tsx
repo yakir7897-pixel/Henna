@@ -3,9 +3,9 @@ import Link from "next/link";
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <header className="border-b border-neutral-200 bg-white">
+      <header className="border-b border-line bg-surface">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3 sm:px-6">
-          <Link href="/admin" className="font-bold" style={{ color: "#1f3a5f" }}>
+          <Link href="/admin" className="font-bold text-primary">
             אישורי הגעה
           </Link>
         </div>

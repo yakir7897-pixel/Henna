@@ -28,6 +28,11 @@ const ENTRANCE_ANIMATION: Record<string, string> = {
   flip: "[animation:flipIn_0.8s_ease-out]",
 };
 
+function daysUntil(date: Date): number {
+  const ms = date.getTime() - Date.now();
+  return Math.ceil(ms / (1000 * 60 * 60 * 24));
+}
+
 export function InviteFlow({ event }: { event: InviteEventData }) {
   const [step, setStep] = useState<Step>(event.loadingImageUrl ? "loading" : "invite");
   const entranceAnimation = ENTRANCE_ANIMATION[toEntranceEffect(event.entranceEffect)];
@@ -36,6 +41,7 @@ export function InviteFlow({ event }: { event: InviteEventData }) {
   const [attending, setAttending] = useState<boolean | null>(null);
   const [guestCount, setGuestCount] = useState(1);
   const [note, setNote] = useState("");
+  const [showNote, setShowNote] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
@@ -47,6 +53,7 @@ export function InviteFlow({ event }: { event: InviteEventData }) {
     year: "numeric",
   });
   const timeLabel = eventDate.toLocaleTimeString("he-IL", { hour: "2-digit", minute: "2-digit" });
+  const daysLeft = daysUntil(eventDate);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -79,7 +86,7 @@ export function InviteFlow({ event }: { event: InviteEventData }) {
         style={{
           backgroundImage: event.coverImageUrl
             ? `url(${event.coverImageUrl})`
-            : "linear-gradient(135deg, #1f3a5f, #0f1c2e)",
+            : "linear-gradient(135deg, #7c3d22, #2b1710)",
         }}
       />
       <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/50 via-black/40 to-black/70" />
@@ -98,7 +105,7 @@ export function InviteFlow({ event }: { event: InviteEventData }) {
             <button
               type="button"
               onClick={() => setStep("invite")}
-              className="mt-8 rounded-full bg-white px-8 py-3 text-sm font-bold text-neutral-900 shadow-lg transition hover:scale-105"
+              className="mt-8 rounded-full bg-white px-8 py-3 text-sm font-bold text-ink shadow-lg transition hover:scale-105"
             >
               פתיחת ההזמנה
             </button>
@@ -114,7 +121,13 @@ export function InviteFlow({ event }: { event: InviteEventData }) {
               <p className="mt-4 text-sm leading-relaxed text-white/90">{event.description}</p>
             )}
 
-            <div className="mt-6 space-y-1 text-sm text-white/90">
+            {daysLeft >= 0 && (
+              <div className="mx-auto mt-5 w-fit rounded-full bg-white/15 px-4 py-1 text-xs font-medium text-white backdrop-blur-sm">
+                {daysLeft === 0 ? "האירוע היום!" : daysLeft === 1 ? "עוד יום אחד לאירוע" : `עוד ${daysLeft} ימים לאירוע`}
+              </div>
+            )}
+
+            <div className="mt-5 space-y-1 text-sm text-white/90">
               <p>{dateLabel}</p>
               <p>בשעה {timeLabel}</p>
               <p>
@@ -137,7 +150,7 @@ export function InviteFlow({ event }: { event: InviteEventData }) {
               <button
                 type="button"
                 onClick={() => setStep("form")}
-                className="mt-2 rounded-full bg-white px-8 py-3 text-sm font-bold text-neutral-900 shadow-lg transition hover:scale-105"
+                className="mt-2 rounded-full bg-white px-8 py-3 text-sm font-bold text-ink shadow-lg transition hover:scale-105"
               >
                 לאישור הגעה
               </button>
@@ -149,14 +162,14 @@ export function InviteFlow({ event }: { event: InviteEventData }) {
           <form
             dir="rtl"
             onSubmit={handleSubmit}
-            className="[animation:fadeIn_0.5s_ease-out] space-y-4 rounded-2xl bg-white/95 p-6 text-right text-neutral-900 shadow-xl"
+            className="[animation:fadeIn_0.5s_ease-out] space-y-4 rounded-2xl bg-white/95 p-6 text-right text-ink shadow-xl"
           >
             <h2 className="text-center text-lg font-bold">אישור הגעה</h2>
 
             <div>
               <label className="block text-sm font-medium text-neutral-700">שם מלא</label>
               <input
-                className="w-full rounded border border-neutral-300 p-2 text-sm"
+                className="w-full rounded border border-neutral-300 p-2 text-sm focus:border-primary focus:outline-none"
                 value={guestName}
                 onChange={(e) => setGuestName(e.target.value)}
                 required
@@ -168,7 +181,7 @@ export function InviteFlow({ event }: { event: InviteEventData }) {
               <input
                 dir="ltr"
                 type="tel"
-                className="w-full rounded border border-neutral-300 p-2 text-sm"
+                className="w-full rounded border border-neutral-300 p-2 text-sm focus:border-primary focus:outline-none"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 required
@@ -181,9 +194,9 @@ export function InviteFlow({ event }: { event: InviteEventData }) {
                 <button
                   type="button"
                   onClick={() => setAttending(true)}
-                  className={`flex-1 rounded-lg border px-3 py-2 text-sm font-semibold ${
+                  className={`flex-1 rounded-lg border px-3 py-2 text-sm font-semibold transition ${
                     attending === true
-                      ? "border-green-600 bg-green-50 text-green-700"
+                      ? "border-success bg-success-bg text-success"
                       : "border-neutral-300 text-neutral-600"
                   }`}
                 >
@@ -192,9 +205,9 @@ export function InviteFlow({ event }: { event: InviteEventData }) {
                 <button
                   type="button"
                   onClick={() => setAttending(false)}
-                  className={`flex-1 rounded-lg border px-3 py-2 text-sm font-semibold ${
+                  className={`flex-1 rounded-lg border px-3 py-2 text-sm font-semibold transition ${
                     attending === false
-                      ? "border-red-600 bg-red-50 text-red-700"
+                      ? "border-danger bg-danger-bg text-danger"
                       : "border-neutral-300 text-neutral-600"
                   }`}
                 >
@@ -206,34 +219,55 @@ export function InviteFlow({ event }: { event: InviteEventData }) {
             {attending && (
               <div>
                 <label className="block text-sm font-medium text-neutral-700">כמה מגיעים בסה&quot;כ?</label>
-                <input
-                  type="number"
-                  min={1}
-                  max={20}
-                  className="w-full rounded border border-neutral-300 p-2 text-sm"
-                  value={guestCount}
-                  onChange={(e) => setGuestCount(Number(e.target.value))}
-                />
+                <div className="mt-1 flex items-center justify-center gap-4 rounded-lg border border-neutral-300 py-2">
+                  <button
+                    type="button"
+                    onClick={() => setGuestCount((c) => Math.max(1, c - 1))}
+                    className="flex h-8 w-8 items-center justify-center rounded-full bg-neutral-100 text-lg font-bold text-neutral-700 hover:bg-neutral-200"
+                    aria-label="הפחתת אורח"
+                  >
+                    −
+                  </button>
+                  <span className="w-8 text-center text-lg font-semibold">{guestCount}</span>
+                  <button
+                    type="button"
+                    onClick={() => setGuestCount((c) => Math.min(20, c + 1))}
+                    className="flex h-8 w-8 items-center justify-center rounded-full bg-neutral-100 text-lg font-bold text-neutral-700 hover:bg-neutral-200"
+                    aria-label="הוספת אורח"
+                  >
+                    +
+                  </button>
+                </div>
               </div>
             )}
 
-            <div>
-              <label className="block text-sm font-medium text-neutral-700">הערה / ברכה (לא חובה)</label>
-              <textarea
-                className="w-full rounded border border-neutral-300 p-2 text-sm"
-                rows={2}
-                value={note}
-                onChange={(e) => setNote(e.target.value)}
-              />
-            </div>
+            {showNote ? (
+              <div>
+                <label className="block text-sm font-medium text-neutral-700">הערה / ברכה</label>
+                <textarea
+                  className="w-full rounded border border-neutral-300 p-2 text-sm focus:border-primary focus:outline-none"
+                  rows={2}
+                  value={note}
+                  onChange={(e) => setNote(e.target.value)}
+                  autoFocus
+                />
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={() => setShowNote(true)}
+                className="text-sm font-medium text-primary hover:underline"
+              >
+                + הוספת ברכה (לא חובה)
+              </button>
+            )}
 
-            {error && <p className="text-sm text-red-600">{error}</p>}
+            {error && <p className="text-sm text-danger">{error}</p>}
 
             <button
               type="submit"
               disabled={isPending}
-              className="w-full rounded-full px-6 py-3 text-sm font-bold text-white disabled:opacity-60"
-              style={{ backgroundColor: "#1f3a5f" }}
+              className="w-full rounded-full bg-primary px-6 py-3 text-sm font-bold text-white transition hover:bg-primary-dark disabled:opacity-60"
             >
               {isPending ? "שולח..." : "שליחת אישור"}
             </button>
@@ -241,10 +275,10 @@ export function InviteFlow({ event }: { event: InviteEventData }) {
         )}
 
         {step === "thanks" && (
-          <div className="[animation:fadeIn_0.6s_ease-out] space-y-4 rounded-2xl bg-white/95 p-8 text-neutral-900 shadow-xl">
+          <div className="[animation:fadeIn_0.6s_ease-out] space-y-4 rounded-2xl bg-white/95 p-8 text-ink shadow-xl">
             <div className="text-5xl">{attending ? "🎉" : "💌"}</div>
             <h2 className="text-xl font-bold">{attending ? "תודה שאישרתם!" : "תודה על התשובה"}</h2>
-            <p className="text-sm text-neutral-600">
+            <p className="text-sm text-muted">
               {attending
                 ? `נרשמת בתור ${guestName}, ${guestCount} מגיעים. מחכים לראותכם!`
                 : `נרשם ש${guestName} לא תוכל/י להגיע הפעם. תודה שעדכנת!`}
@@ -252,8 +286,7 @@ export function InviteFlow({ event }: { event: InviteEventData }) {
             <button
               type="button"
               onClick={() => setStep("form")}
-              className="text-sm font-medium underline underline-offset-4"
-              style={{ color: "#1f3a5f" }}
+              className="text-sm font-medium text-primary underline underline-offset-4"
             >
               לתקן את התשובה
             </button>

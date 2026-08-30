@@ -42,8 +42,7 @@ export function EditEventForm({ event }: { event: Event }) {
         <button
           type="submit"
           disabled={isPending}
-          className="rounded px-5 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
-          style={{ backgroundColor: "#1f3a5f" }}
+          className="rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark disabled:opacity-60"
         >
           {isPending ? "שומר..." : saved ? "נשמר!" : "שמירה"}
         </button>

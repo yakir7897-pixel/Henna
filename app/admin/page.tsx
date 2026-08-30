@@ -14,33 +14,34 @@ export default async function AdminIndexPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-neutral-900">אישורי הגעה</h1>
-        <p className="mt-1 text-sm text-neutral-600">ניהול אירועים, קישורי הזמנה ורשימות אורחים.</p>
+        <h1 className="text-2xl font-bold text-ink">אישורי הגעה</h1>
+        <p className="mt-1 text-sm text-muted">ניהול אירועים, קישורי הזמנה ורשימות אורחים.</p>
       </div>
 
-      <section className="rounded-lg border border-neutral-200 bg-white p-5">
-        <h2 className="mb-4 text-lg font-semibold text-neutral-900">אירוע חדש</h2>
+      <section className="rounded-xl border border-line bg-surface p-5">
+        <h2 className="mb-4 text-lg font-semibold text-ink">אירוע חדש</h2>
         <NewEventForm />
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-lg font-semibold text-neutral-900">האירועים שלי</h2>
+        <h2 className="text-lg font-semibold text-ink">האירועים שלי</h2>
         {events.length === 0 ? (
-          <p className="text-sm text-neutral-500">עדיין לא נוצרו אירועים.</p>
+          <p className="rounded-xl border border-dashed border-line bg-surface p-6 text-center text-sm text-muted">
+            עדיין לא נוצרו אירועים — צרו אחד למעלה כדי לקבל קישור הזמנה.
+          </p>
         ) : (
-          <ul className="divide-y divide-neutral-200 rounded-lg border border-neutral-200 bg-white">
+          <ul className="divide-y divide-line rounded-xl border border-line bg-surface">
             {events.map((event) => (
               <li key={event.id} className="flex flex-wrap items-center justify-between gap-3 p-4">
                 <div>
-                  <p className="font-medium text-neutral-900">{event.title}</p>
-                  <p className="text-sm text-neutral-500">
+                  <p className="font-medium text-ink">{event.title}</p>
+                  <p className="text-sm text-muted">
                     {new Date(event.eventDate).toLocaleString("he-IL")} · {event._count.rsvps} אישורים
                   </p>
                 </div>
                 <Link
                   href={`/admin/${event.slug}`}
-                  className="rounded px-3 py-1.5 text-sm font-semibold text-white"
-                  style={{ backgroundColor: "#1f3a5f" }}
+                  className="rounded-full bg-primary px-4 py-1.5 text-sm font-semibold text-white transition hover:bg-primary-dark"
                 >
                   ניהול
                 </Link>
