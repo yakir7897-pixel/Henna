@@ -119,25 +119,40 @@ export function InviteFlow({ event }: { event: InviteEventData }) {
 
         {step === "invite" && (
           <div className={entranceAnimation}>
-            <h1 className="text-2xl font-bold leading-snug">
-              {event.hostNames ? `אתם מוזמנים לחינה של ${event.hostNames}` : "אתם מוזמנים"}
-            </h1>
+            <p className="text-xs font-medium uppercase tracking-[0.3em] text-white/60">
+              אתם מוזמנים{event.hostNames ? " לחינה של" : ""}
+            </p>
+
+            {event.hostNames && (
+              <>
+                <h1
+                  className="mt-3 text-4xl leading-tight font-bold sm:text-5xl"
+                  style={{ fontFamily: "var(--font-display)" }}
+                >
+                  {event.hostNames}
+                </h1>
+                <div className="mx-auto mt-4 h-px w-12 bg-white/30" />
+              </>
+            )}
+
             {(event.title || event.description) && (
-              <p className="mt-4 text-base font-medium leading-relaxed text-white/90">
-                {[event.title, event.description].filter(Boolean).join(" ")}
+              <p className="mx-auto mt-5 max-w-sm text-base leading-relaxed text-white/85">
+                {event.title && <span className="font-semibold text-white">{event.title}</span>}
+                {event.title && event.description ? " " : ""}
+                {event.description}
               </p>
             )}
 
             {daysLeft >= 0 && (
-              <div className="mx-auto mt-5 w-fit rounded-full bg-white/15 px-4 py-1 text-xs font-medium text-white backdrop-blur-sm">
+              <div className="mx-auto mt-6 w-fit rounded-full bg-white/15 px-4 py-1 text-xs font-medium text-white backdrop-blur-sm">
                 {daysLeft === 0 ? "האירוע היום!" : daysLeft === 1 ? "עוד יום אחד לאירוע" : `עוד ${daysLeft} ימים לאירוע`}
               </div>
             )}
 
-            <div className="mt-5 space-y-1 text-sm text-white/90">
-              <p>{dateLabel}</p>
-              <p>בשעה {timeLabel}</p>
-              <p>
+            <div className="mt-6 space-y-1">
+              <p className="text-lg font-semibold">{dateLabel}</p>
+              <p className="text-sm text-white/85">בשעה {timeLabel}</p>
+              <p className="text-sm text-white/70">
                 {event.venueName}
                 {event.address ? ` · ${event.address}` : ""}
               </p>
