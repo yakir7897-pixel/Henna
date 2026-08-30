@@ -8,7 +8,13 @@ import { EditEventForm } from "./EditEventForm";
 
 type Tab = "overview" | "guests" | "design";
 
-export function EventWorkspace({ event }: { event: Event & { rsvps: Rsvp[] } }) {
+export function EventWorkspace({
+  event,
+  siteUrl,
+}: {
+  event: Event & { rsvps: Rsvp[] };
+  siteUrl?: string;
+}) {
   const [tab, setTab] = useState<Tab>("overview");
 
   const attending = event.rsvps.filter((r) => r.attending);
@@ -41,7 +47,7 @@ export function EventWorkspace({ event }: { event: Event & { rsvps: Rsvp[] } }) 
 
       {tab === "overview" && (
         <div className="space-y-6">
-          <InviteLinkBox slug={event.slug} />
+          <InviteLinkBox slug={event.slug} siteUrl={siteUrl} />
           <section className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             <StatCard label="אישרו הגעה" value={attending.length} tone="success" />
             <StatCard label='סה"כ מגיעים' value={totalGuests} tone="primary" />

@@ -5,7 +5,7 @@ import { createEvent } from "@/app/admin/actions";
 import { emptyEventFormValues, toEventInput } from "@/lib/invite/types";
 import { EventFormFields } from "./EventFormFields";
 
-export function NewEventForm() {
+export function NewEventForm({ siteUrl }: { siteUrl?: string }) {
   const [values, setValues] = useState(emptyEventFormValues());
   const [inviteLink, setInviteLink] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
@@ -14,7 +14,7 @@ export function NewEventForm() {
     event.preventDefault();
     startTransition(async () => {
       const created = await createEvent(toEventInput(values));
-      setInviteLink(`${window.location.origin}/i/${created.slug}`);
+      setInviteLink(`${siteUrl ?? window.location.origin}/i/${created.slug}`);
       setValues(emptyEventFormValues());
     });
   }

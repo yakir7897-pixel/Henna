@@ -2,19 +2,19 @@
 
 import { useState } from "react";
 
-export function InviteLinkBox({ slug }: { slug: string }) {
+export function InviteLinkBox({ slug, siteUrl }: { slug: string; siteUrl?: string }) {
   const [copied, setCopied] = useState(false);
   const path = `/i/${slug}`;
 
   function fullLink() {
-    return `${window.location.origin}${path}`;
+    return `${siteUrl ?? window.location.origin}${path}`;
   }
 
   return (
     <div className="flex flex-wrap items-center gap-2 rounded-xl border border-line bg-surface p-4">
       <span className="text-sm text-muted">קישור ההזמנה:</span>
       <code className="rounded bg-app px-2 py-1 text-xs text-ink" dir="ltr">
-        {path}
+        {siteUrl ? fullLink() : path}
       </code>
       <button
         type="button"

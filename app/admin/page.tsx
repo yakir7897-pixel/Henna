@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
+import { getSiteUrl } from "@/lib/invite/site-url";
 import { NewEventForm } from "@/components/invite/NewEventForm";
 
 export const dynamic = "force-dynamic";
@@ -20,7 +21,7 @@ export default async function AdminIndexPage() {
 
       <section className="rounded-xl border border-line bg-surface p-5">
         <h2 className="mb-4 text-lg font-semibold text-ink">אירוע חדש</h2>
-        <NewEventForm />
+        <NewEventForm siteUrl={getSiteUrl()} />
       </section>
 
       <section className="space-y-3">

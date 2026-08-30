@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
+import { getSiteUrl } from "@/lib/invite/site-url";
 import { EventWorkspace } from "@/components/invite/EventWorkspace";
 
 export const dynamic = "force-dynamic";
@@ -21,7 +22,7 @@ export default async function AdminEventPage({ params }: { params: Promise<{ slu
         </p>
       </div>
 
-      <EventWorkspace event={event} />
+      <EventWorkspace event={event} siteUrl={getSiteUrl()} />
     </div>
   );
 }
