@@ -3,7 +3,7 @@ import { toHebrewDateString } from "@/lib/invite/hebrew-date";
 import { CoverImageUploader } from "./CoverImageUploader";
 
 const inputClass =
-  "w-full rounded border border-neutral-300 p-2 text-sm focus:border-primary focus:outline-none";
+  "w-full rounded-2xl border border-line bg-surface px-4 py-2.5 text-sm text-ink transition focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15";
 const labelClass = "block text-sm font-medium text-neutral-700";
 
 function FieldGroup({ title, children }: { title: string; children: React.ReactNode }) {

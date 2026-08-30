@@ -4,6 +4,7 @@ import { useState, useTransition } from "react";
 import { createEvent } from "@/app/admin/actions";
 import { emptyEventFormValues, toEventInput } from "@/lib/invite/types";
 import { EventFormFields } from "./EventFormFields";
+import { Alert } from "./Alert";
 
 export function NewEventForm({ siteUrl }: { siteUrl?: string }) {
   const [values, setValues] = useState(emptyEventFormValues());
@@ -35,21 +36,21 @@ export function NewEventForm({ siteUrl }: { siteUrl?: string }) {
       </form>
 
       {inviteLink && (
-        <div className="rounded-lg border border-success/30 bg-success-bg p-3 text-sm text-success">
+        <Alert tone="success">
           <p className="font-medium">האירוע נוצר! זה קישור ההזמנה שאפשר לשלוח לאורחים:</p>
           <div className="mt-2 flex flex-wrap items-center gap-2">
-            <code className="rounded bg-white px-2 py-1 text-xs text-ink" dir="ltr">
+            <code className="rounded-full bg-white px-3 py-1 text-xs text-ink" dir="ltr">
               {inviteLink}
             </code>
             <button
               type="button"
               onClick={() => navigator.clipboard.writeText(inviteLink)}
-              className="rounded border border-success/40 px-2 py-1 text-xs hover:bg-white"
+              className="rounded-full border border-success/40 px-3 py-1 text-xs hover:bg-white"
             >
               העתק קישור
             </button>
           </div>
-        </div>
+        </Alert>
       )}
     </div>
   );

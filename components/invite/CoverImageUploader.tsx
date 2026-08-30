@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { uploadCoverImage } from "@/app/admin/actions";
+import { Alert } from "./Alert";
 
 export function CoverImageUploader({
   value,
@@ -37,7 +38,7 @@ export function CoverImageUploader({
     <div className="space-y-2">
       {value && (
         <div
-          className="h-32 w-full rounded-lg border border-neutral-200 bg-neutral-100 bg-cover bg-center"
+          className="h-32 w-full rounded-2xl border border-line bg-app bg-cover bg-center"
           style={{ backgroundImage: `url(${value})` }}
         />
       )}
@@ -46,18 +47,18 @@ export function CoverImageUploader({
           type="button"
           onClick={() => inputRef.current?.click()}
           disabled={isUploading}
-          className="rounded border border-neutral-300 px-3 py-1.5 text-sm hover:bg-neutral-50 disabled:opacity-60"
+          className="rounded-full border border-line px-4 py-1.5 text-sm transition hover:bg-app disabled:opacity-60"
         >
           {isUploading ? "מעלה..." : value ? "החלף תמונה" : "העלאת תמונה"}
         </button>
         {value && (
-          <button type="button" onClick={() => onChange("")} className="text-sm text-red-600 hover:underline">
+          <button type="button" onClick={() => onChange("")} className="text-sm text-danger hover:underline">
             הסר תמונה
           </button>
         )}
         <input ref={inputRef} type="file" accept="image/*" className="hidden" onChange={handleFileChange} />
       </div>
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      {error && <Alert tone="danger">{error}</Alert>}
     </div>
   );
 }

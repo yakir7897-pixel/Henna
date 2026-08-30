@@ -3,6 +3,7 @@
 import { useTransition } from "react";
 import type { Rsvp } from "@prisma/client";
 import { deleteRsvp } from "@/app/admin/[slug]/actions";
+import { CheckCircleIcon, XCircleIcon } from "./icons";
 
 export function RsvpTable({ rsvps, slug }: { rsvps: Rsvp[]; slug: string }) {
   const [isPending, startTransition] = useTransition();
@@ -38,10 +39,11 @@ export function RsvpTable({ rsvps, slug }: { rsvps: Rsvp[]; slug: string }) {
               </td>
               <td className="p-3">
                 <span
-                  className={`inline-block rounded-full px-3 py-1 text-xs font-medium ${
+                  className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium ${
                     rsvp.attending ? "bg-success-bg text-success" : "bg-danger-bg text-danger"
                   }`}
                 >
+                  {rsvp.attending ? <CheckCircleIcon className="h-3.5 w-3.5" /> : <XCircleIcon className="h-3.5 w-3.5" />}
                   {rsvp.attending ? "מגיע/ה" : "לא מגיע/ה"}
                 </span>
               </td>

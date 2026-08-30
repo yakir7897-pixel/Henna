@@ -11,6 +11,16 @@ export function CheckCircleIcon({ className }: IconProps) {
   );
 }
 
+export function WarningIcon({ className }: IconProps) {
+  return (
+    <svg {...base} className={className}>
+      <path d="M12 3.5 21.5 20h-19L12 3.5Z" />
+      <path d="M12 10v4.5" />
+      <circle cx="12" cy="17.2" r="0.6" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
 export function XCircleIcon({ className }: IconProps) {
   return (
     <svg {...base} className={className}>
