@@ -119,11 +119,13 @@ export function InviteFlow({ event }: { event: InviteEventData }) {
 
         {step === "invite" && (
           <div className={entranceAnimation}>
-            <p className="text-sm uppercase tracking-widest text-white/70">אתם מוזמנים</p>
-            {event.hostNames && <h1 className="mt-3 text-3xl font-bold">{event.hostNames}</h1>}
-            <h2 className="mt-2 text-xl font-semibold">{event.title}</h2>
-            {event.description && (
-              <p className="mt-4 text-sm leading-relaxed text-white/90">{event.description}</p>
+            <h1 className="text-2xl font-bold leading-snug">
+              {event.hostNames ? `אתם מוזמנים לחינה של ${event.hostNames}` : "אתם מוזמנים"}
+            </h1>
+            {(event.title || event.description) && (
+              <p className="mt-4 text-base font-medium leading-relaxed text-white/90">
+                {[event.title, event.description].filter(Boolean).join(" ")}
+              </p>
             )}
 
             {daysLeft >= 0 && (
