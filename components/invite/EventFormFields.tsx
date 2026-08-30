@@ -1,4 +1,5 @@
 import type { EventFormValues } from "@/lib/invite/types";
+import { CoverImageUploader } from "./CoverImageUploader";
 
 const inputClass =
   "w-full rounded border border-neutral-300 p-2 text-sm focus:border-neutral-500 focus:outline-none";
@@ -69,13 +70,10 @@ export function EventFormFields({
         />
       </div>
       <div>
-        <label className={labelClass}>תמונת רקע (קישור לתמונה)</label>
-        <input
-          className={inputClass}
-          dir="ltr"
+        <label className={labelClass}>תמונת רקע להזמנה</label>
+        <CoverImageUploader
           value={values.coverImageUrl}
-          onChange={(e) => onChange({ coverImageUrl: e.target.value })}
-          placeholder="https://..."
+          onChange={(url) => onChange({ coverImageUrl: url })}
         />
       </div>
       <div className="sm:col-span-2">

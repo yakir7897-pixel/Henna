@@ -62,16 +62,16 @@ export function InviteFlow({ event }: { event: InviteEventData }) {
   }
 
   return (
-    <div
-      className="flex min-h-screen flex-col items-center justify-center px-4 py-10 text-center text-white"
-      style={{
-        backgroundImage: event.coverImageUrl
-          ? `linear-gradient(rgba(15,23,35,0.55), rgba(15,23,35,0.75)), url(${event.coverImageUrl})`
-          : "linear-gradient(135deg, #1f3a5f, #0f1c2e)",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
+    <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4 py-10 text-center text-white">
+      <div
+        className="absolute inset-0 -z-20 bg-cover bg-center [animation:kenBurns_20s_ease-in-out_infinite_alternate]"
+        style={{
+          backgroundImage: event.coverImageUrl
+            ? `url(${event.coverImageUrl})`
+            : "linear-gradient(135deg, #1f3a5f, #0f1c2e)",
+        }}
+      />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/50 via-black/40 to-black/70" />
       <div className="w-full max-w-md">
         {step === "invite" && (
           <div className="[animation:fadeIn_0.8s_ease-out]">
