@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
+import { LinkIcon, ChatIcon, EyeIcon, DownloadIcon, CheckCircleIcon } from "./icons";
 
 function ActionButton({
   icon,
@@ -8,7 +9,7 @@ function ActionButton({
   onClick,
   href,
 }: {
-  icon: string;
+  icon: ReactNode;
   label: string;
   onClick?: () => void;
   href?: string;
@@ -19,7 +20,7 @@ function ActionButton({
   if (href) {
     return (
       <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
-        <span className="flex h-11 w-11 items-center justify-center rounded-full bg-primary/10 text-xl">{icon}</span>
+        <span className="flex h-11 w-11 items-center justify-center rounded-full bg-primary/10 text-primary">{icon}</span>
         <span className="text-xs font-medium text-ink">{label}</span>
       </a>
     );
@@ -27,7 +28,7 @@ function ActionButton({
 
   return (
     <button type="button" onClick={onClick} className={className}>
-      <span className="flex h-11 w-11 items-center justify-center rounded-full bg-primary/10 text-xl">{icon}</span>
+      <span className="flex h-11 w-11 items-center justify-center rounded-full bg-primary/10 text-primary">{icon}</span>
       <span className="text-xs font-medium text-ink">{label}</span>
     </button>
   );
@@ -44,7 +45,7 @@ export function QuickActions({ slug, siteUrl }: { slug: string; siteUrl?: string
   return (
     <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
       <ActionButton
-        icon="🔗"
+        icon={copied ? <CheckCircleIcon /> : <LinkIcon />}
         label={copied ? "הועתק!" : "העתקת קישור"}
         onClick={() => {
           navigator.clipboard.writeText(fullLink());
@@ -53,12 +54,12 @@ export function QuickActions({ slug, siteUrl }: { slug: string; siteUrl?: string
         }}
       />
       <ActionButton
-        icon="💬"
+        icon={<ChatIcon />}
         label="שיתוף בוואטסאפ"
         onClick={() => window.open(`https://wa.me/?text=${encodeURIComponent(fullLink())}`, "_blank", "noopener,noreferrer")}
       />
-      <ActionButton icon="👁️" label="תצוגה מקדימה" href={path} />
-      <ActionButton icon="📊" label="ייצוא לאקסל" href={`/admin/${slug}/export`} />
+      <ActionButton icon={<EyeIcon />} label="תצוגה מקדימה" href={path} />
+      <ActionButton icon={<DownloadIcon />} label="ייצוא לאקסל" href={`/admin/${slug}/export`} />
     </div>
   );
 }

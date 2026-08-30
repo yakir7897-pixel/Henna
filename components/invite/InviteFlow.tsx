@@ -86,7 +86,7 @@ export function InviteFlow({ event }: { event: InviteEventData }) {
         style={{
           backgroundImage: event.coverImageUrl
             ? `url(${event.coverImageUrl})`
-            : "linear-gradient(135deg, #5c1729, #1a0910)",
+            : "linear-gradient(135deg, #0d8267, #0a2e2b)",
         }}
       />
       <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/50 via-black/40 to-black/70" />

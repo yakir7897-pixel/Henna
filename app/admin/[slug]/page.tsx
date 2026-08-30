@@ -4,7 +4,8 @@ import { getEventWithRsvpsBySlug } from "@/lib/invite/get-event";
 import { getSiteUrl } from "@/lib/invite/site-url";
 import { daysUntil } from "@/lib/invite/types";
 import { QuickActions } from "@/components/invite/QuickActions";
-import { StatCard } from "@/components/invite/StatCard";
+import { ResponseBar } from "@/components/invite/ResponseBar";
+import { UsersIcon } from "@/components/invite/icons";
 
 export const dynamic = "force-dynamic";
 
@@ -37,11 +38,17 @@ export default async function AdminOverviewPage({ params }: { params: Promise<{ 
 
       <QuickActions slug={event.slug} siteUrl={getSiteUrl()} />
 
-      <section className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <StatCard label="אישרו הגעה" value={attending.length} tone="success" icon="✅" />
-        <StatCard label='סה"כ מגיעים' value={totalGuests} tone="primary" icon="👥" />
-        <StatCard label="לא מגיעים" value={notAttending.length} tone="danger" icon="❌" />
-      </section>
+      <ResponseBar attending={attending.length} notAttending={notAttending.length} />
+
+      <div className="flex items-center gap-4 rounded-2xl border border-line/60 bg-surface p-4 shadow-sm">
+        <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+          <UsersIcon className="h-6 w-6" />
+        </span>
+        <div>
+          <p className="text-2xl font-bold text-ink">{totalGuests}</p>
+          <p className="text-sm text-muted">סה&quot;כ אורחים מגיעים (כולל בני לוויה)</p>
+        </div>
+      </div>
 
       <section>
         <div className="flex items-center justify-between">
