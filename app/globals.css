@@ -72,3 +72,21 @@ body {
     transform: perspective(600px) rotateX(0deg);
   }
 }
+
+@keyframes flipTop {
+  from {
+    transform: rotateX(0deg);
+  }
+  to {
+    transform: rotateX(-90deg);
+  }
+}
+
+@keyframes flipBottom {
+  from {
+    transform: rotateX(90deg);
+  }
+  to {
+    transform: rotateX(0deg);
+  }
+}
