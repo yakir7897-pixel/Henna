@@ -29,19 +29,19 @@ export function AdminBottomNav({ slug, siteUrl }: { slug: string; siteUrl?: stri
       style={{ paddingBottom: "calc(env(safe-area-inset-bottom) + 1rem)" }}
     >
       <div className="relative flex w-full max-w-sm items-center">
-        <div className="flex flex-1 items-center justify-around rounded-full bg-ink py-2 shadow-xl">
+        <div className="flex flex-1 items-center justify-around rounded-full bg-primary py-2 shadow-xl">
           {items.map(({ href, label, Icon, exact }) => {
             const active = exact ? pathname === href : pathname.startsWith(href);
             return (
               <Link key={href} href={href} className="flex flex-col items-center gap-1 px-2.5 py-1 text-[10px] font-medium">
                 <span
                   className={`flex h-8 w-8 items-center justify-center rounded-full transition ${
-                    active ? "bg-primary text-white" : "text-white/55"
+                    active ? "bg-white text-primary" : "text-white/70"
                   }`}
                 >
                   <Icon className="h-[18px] w-[18px]" />
                 </span>
-                <span className={active ? "text-white" : "text-white/45"}>{label}</span>
+                <span className={active ? "text-white" : "text-white/70"}>{label}</span>
               </Link>
             );
           })}
@@ -51,7 +51,7 @@ export function AdminBottomNav({ slug, siteUrl }: { slug: string; siteUrl?: stri
           type="button"
           onClick={copyLink}
           aria-label="העתקת קישור ההזמנה"
-          className="absolute -top-5 left-1 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white shadow-lg transition hover:scale-105"
+          className="absolute -top-9 left-1 flex h-14 w-14 items-center justify-center rounded-full bg-primary-dark text-white shadow-lg transition hover:scale-105"
         >
           {copied ? <CheckCircleIcon className="h-6 w-6" /> : <LinkIcon className="h-6 w-6" />}
         </button>

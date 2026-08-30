@@ -2,9 +2,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getEventWithRsvpsBySlug } from "@/lib/invite/get-event";
 import { getSiteUrl } from "@/lib/invite/site-url";
-import { daysUntil } from "@/lib/invite/types";
 import { QuickActions } from "@/components/invite/QuickActions";
 import { ResponseBar } from "@/components/invite/ResponseBar";
+import { CountdownTimer } from "@/components/invite/CountdownTimer";
 import { UsersIcon } from "@/components/invite/icons";
 
 export const dynamic = "force-dynamic";
@@ -17,24 +17,10 @@ export default async function AdminOverviewPage({ params }: { params: Promise<{ 
   const attending = event.rsvps.filter((r) => r.attending);
   const notAttending = event.rsvps.filter((r) => !r.attending);
   const totalGuests = attending.reduce((sum, r) => sum + r.guestCount, 0);
-  const daysLeft = daysUntil(event.eventDate);
 
   return (
     <div className="space-y-6">
-      <div className="rounded-2xl bg-primary/10 p-5 text-center">
-        <p className="text-3xl font-bold text-primary">
-          {daysLeft > 0 ? daysLeft : daysLeft === 0 ? "🎉" : "✓"}
-        </p>
-        <p className="mt-1 text-sm text-muted">
-          {daysLeft > 1
-            ? `ימים לאירוע`
-            : daysLeft === 1
-              ? "יום אחד לאירוע"
-              : daysLeft === 0
-                ? "האירוע היום!"
-                : "האירוע כבר התקיים"}
-        </p>
-      </div>
+      <CountdownTimer eventDate={event.eventDate.toISOString()} />
 
       <QuickActions slug={event.slug} siteUrl={getSiteUrl()} />
 
