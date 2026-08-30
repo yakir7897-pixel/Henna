@@ -21,12 +21,12 @@ export async function updateEvent(eventId: string, input: EventInput) {
     },
   });
 
-  revalidatePath(`/admin/${event.slug}`);
+  revalidatePath(`/admin/${event.slug}`, "layout");
   revalidatePath(`/i/${event.slug}`);
   return event;
 }
 
 export async function deleteRsvp(rsvpId: string, slug: string) {
   await prisma.rsvp.delete({ where: { id: rsvpId } });
-  revalidatePath(`/admin/${slug}`);
+  revalidatePath(`/admin/${slug}`, "layout");
 }

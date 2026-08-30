@@ -82,6 +82,10 @@ export function parseDatetimeLocal(value: string): Date {
   return new Date(Date.UTC(year, month - 1, day, hour, minute));
 }
 
+export function daysUntil(date: Date): number {
+  return Math.ceil((date.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+}
+
 export function toDatetimeLocal(date: Date): string {
   const pad = (n: number) => String(n).padStart(2, "0");
   return `${date.getUTCFullYear()}-${pad(date.getUTCMonth() + 1)}-${pad(date.getUTCDate())}T${pad(date.getUTCHours())}:${pad(date.getUTCMinutes())}`;

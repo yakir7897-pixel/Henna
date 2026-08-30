@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { submitRsvp } from "@/app/i/[slug]/actions";
-import { toEntranceEffect } from "@/lib/invite/types";
+import { daysUntil, toEntranceEffect } from "@/lib/invite/types";
 
 export type InviteEventData = {
   id: string;
@@ -27,11 +27,6 @@ const ENTRANCE_ANIMATION: Record<string, string> = {
   zoomIn: "[animation:zoomIn_0.7s_ease-out]",
   flip: "[animation:flipIn_0.8s_ease-out]",
 };
-
-function daysUntil(date: Date): number {
-  const ms = date.getTime() - Date.now();
-  return Math.ceil(ms / (1000 * 60 * 60 * 24));
-}
 
 export function InviteFlow({ event }: { event: InviteEventData }) {
   const [step, setStep] = useState<Step>(event.loadingImageUrl ? "loading" : "invite");

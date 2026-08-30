@@ -53,6 +53,6 @@ export async function createEvent(input: EventInput) {
     },
   });
 
-  revalidatePath("/admin");
+  revalidatePath("/admin/events");
   return event;
 }
