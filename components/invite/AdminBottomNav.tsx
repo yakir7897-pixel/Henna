@@ -33,15 +33,15 @@ export function AdminBottomNav({ slug, siteUrl }: { slug: string; siteUrl?: stri
           {items.map(({ href, label, Icon, exact }) => {
             const active = exact ? pathname === href : pathname.startsWith(href);
             return (
-              <Link key={href} href={href} className="flex flex-col items-center gap-1 px-2.5 py-1 text-[10px] font-medium">
+              <Link key={href} href={href} className="flex flex-col items-center gap-1 px-2.5 py-1 text-[11px]">
                 <span
-                  className={`flex h-8 w-8 items-center justify-center rounded-full transition ${
-                    active ? "bg-white text-primary" : "text-white/70"
+                  className={`flex h-11 w-11 items-center justify-center rounded-full transition ${
+                    active ? "bg-white text-primary shadow-[0_0_16px_4px_rgba(255,255,255,0.7)]" : "text-white/70"
                   }`}
                 >
-                  <Icon className="h-[18px] w-[18px]" />
+                  <Icon className="h-6 w-6" />
                 </span>
-                <span className={active ? "text-white" : "text-white/70"}>{label}</span>
+                <span className={active ? "font-bold text-white" : "font-medium text-white/70"}>{label}</span>
               </Link>
             );
           })}
