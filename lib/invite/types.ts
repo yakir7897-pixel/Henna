@@ -69,7 +69,20 @@ export function toEventInput(values: EventFormValues): EventInput {
   };
 }
 
+// Event dates are stored as "floating" wall-clock time: the numbers typed in the
+// datetime-local input are encoded into a Date using UTC fields, and always read
+// back out using UTC fields too. This keeps the displayed date/time identical
+// regardless of which timezone the browser or server happens to run in — the
+// alternative (`new Date(string)`) is parsed as *local* time to whichever
+// machine runs it, which silently shifts the value between browser and server.
+export function parseDatetimeLocal(value: string): Date {
+  const [datePart, timePart] = value.split("T");
+  const [year, month, day] = datePart.split("-").map(Number);
+  const [hour, minute] = (timePart ?? "00:00").split(":").map(Number);
+  return new Date(Date.UTC(year, month - 1, day, hour, minute));
+}
+
 export function toDatetimeLocal(date: Date): string {
   const pad = (n: number) => String(n).padStart(2, "0");
-  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+  return `${date.getUTCFullYear()}-${pad(date.getUTCMonth() + 1)}-${pad(date.getUTCDate())}T${pad(date.getUTCHours())}:${pad(date.getUTCMinutes())}`;
 }

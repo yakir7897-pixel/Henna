@@ -51,8 +51,13 @@ export function InviteFlow({ event }: { event: InviteEventData }) {
     day: "numeric",
     month: "long",
     year: "numeric",
+    timeZone: "UTC",
   });
-  const timeLabel = eventDate.toLocaleTimeString("he-IL", { hour: "2-digit", minute: "2-digit" });
+  const timeLabel = eventDate.toLocaleTimeString("he-IL", {
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: "UTC",
+  });
   const daysLeft = daysUntil(eventDate);
 
   function handleSubmit(e: React.FormEvent) {

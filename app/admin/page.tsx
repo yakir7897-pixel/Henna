@@ -36,7 +36,8 @@ export default async function AdminIndexPage() {
                 <div>
                   <p className="font-medium text-ink">{event.title}</p>
                   <p className="text-sm text-muted">
-                    {new Date(event.eventDate).toLocaleString("he-IL")} · {event._count.rsvps} אישורים
+                    {new Date(event.eventDate).toLocaleString("he-IL", { timeZone: "UTC" })} · {event._count.rsvps}{" "}
+                    אישורים
                   </p>
                 </div>
                 <Link

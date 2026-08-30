@@ -4,7 +4,7 @@ import { randomUUID } from "crypto";
 import { revalidatePath } from "next/cache";
 import { put } from "@vercel/blob";
 import { prisma } from "@/lib/prisma";
-import { toEntranceEffect, type EventInput } from "@/lib/invite/types";
+import { parseDatetimeLocal, toEntranceEffect, type EventInput } from "@/lib/invite/types";
 
 export type UploadCoverImageResult = { ok: true; url: string } | { ok: false; error: string };
 
@@ -42,7 +42,7 @@ export async function createEvent(input: EventInput) {
       slug: generateSlug(),
       title: input.title,
       hostNames: input.hostNames ?? null,
-      eventDate: new Date(input.eventDate),
+      eventDate: parseDatetimeLocal(input.eventDate),
       venueName: input.venueName,
       address: input.address ?? null,
       mapsUrl: input.mapsUrl ?? null,

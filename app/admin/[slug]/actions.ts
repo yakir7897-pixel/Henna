@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
-import { toEntranceEffect, type EventInput } from "@/lib/invite/types";
+import { parseDatetimeLocal, toEntranceEffect, type EventInput } from "@/lib/invite/types";
 
 export async function updateEvent(eventId: string, input: EventInput) {
   const event = await prisma.event.update({
@@ -10,7 +10,7 @@ export async function updateEvent(eventId: string, input: EventInput) {
     data: {
       title: input.title,
       hostNames: input.hostNames ?? null,
-      eventDate: new Date(input.eventDate),
+      eventDate: parseDatetimeLocal(input.eventDate),
       venueName: input.venueName,
       address: input.address ?? null,
       mapsUrl: input.mapsUrl ?? null,

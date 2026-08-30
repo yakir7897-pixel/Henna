@@ -17,7 +17,7 @@ export default async function AdminEventPage({ params }: { params: Promise<{ slu
       <div>
         <h1 className="text-2xl font-bold text-ink">{event.title}</h1>
         <p className="mt-1 text-sm text-muted">
-          {new Date(event.eventDate).toLocaleString("he-IL")} · {event.venueName}
+          {new Date(event.eventDate).toLocaleString("he-IL", { timeZone: "UTC" })} · {event.venueName}
         </p>
       </div>
 
