@@ -20,7 +20,7 @@ export default async function AdminOverviewPage({ params }: { params: Promise<{ 
 
   return (
     <div className="space-y-6">
-      <div className="rounded-xl bg-primary/10 p-5 text-center">
+      <div className="rounded-2xl bg-primary/10 p-5 text-center">
         <p className="text-3xl font-bold text-primary">
           {daysLeft > 0 ? daysLeft : daysLeft === 0 ? "🎉" : "✓"}
         </p>
@@ -54,11 +54,11 @@ export default async function AdminOverviewPage({ params }: { params: Promise<{ 
         </div>
 
         {event.rsvps.length === 0 ? (
-          <p className="mt-2 rounded-xl border border-dashed border-line bg-surface p-6 text-center text-sm text-muted">
+          <p className="mt-2 rounded-2xl border border-dashed border-line bg-surface p-6 text-center text-sm text-muted">
             עדיין לא התקבלו אישורי הגעה — שתפו את הקישור למעלה כדי להתחיל.
           </p>
         ) : (
-          <ul className="mt-2 divide-y divide-line rounded-xl border border-line bg-surface">
+          <ul className="mt-2 divide-y divide-line rounded-2xl border border-line/60 bg-surface shadow-sm">
             {event.rsvps.slice(0, 5).map((rsvp) => (
               <li key={rsvp.id} className="flex items-center justify-between p-3 text-sm">
                 <span className="font-medium text-ink">{rsvp.guestName}</span>

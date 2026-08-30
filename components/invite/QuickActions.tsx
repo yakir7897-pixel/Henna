@@ -14,12 +14,12 @@ function ActionButton({
   href?: string;
 }) {
   const className =
-    "flex flex-col items-center gap-1.5 rounded-xl border border-line bg-surface p-4 text-center transition hover:border-primary/40 hover:shadow-sm";
+    "flex flex-col items-center gap-1.5 rounded-2xl border border-line/60 bg-surface p-4 text-center shadow-sm transition hover:shadow-md";
 
   if (href) {
     return (
       <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
-        <span className="text-2xl">{icon}</span>
+        <span className="flex h-11 w-11 items-center justify-center rounded-full bg-primary/10 text-xl">{icon}</span>
         <span className="text-xs font-medium text-ink">{label}</span>
       </a>
     );
@@ -27,7 +27,7 @@ function ActionButton({
 
   return (
     <button type="button" onClick={onClick} className={className}>
-      <span className="text-2xl">{icon}</span>
+      <span className="flex h-11 w-11 items-center justify-center rounded-full bg-primary/10 text-xl">{icon}</span>
       <span className="text-xs font-medium text-ink">{label}</span>
     </button>
   );
